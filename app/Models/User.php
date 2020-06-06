@@ -6,10 +6,11 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Optix\Media\HasMedia;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, Notifiable;
+    use HasMedia, HasApiTokens, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -33,4 +34,10 @@ class User extends Authenticatable
     {
         $this->attributes['password'] = bcrypt($value);
     }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
 }
